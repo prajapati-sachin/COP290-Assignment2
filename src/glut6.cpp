@@ -20,7 +20,7 @@ float angle2 = 0.0f;
 float lx=-2.0f, ly=-2.0f, lz=-2.0f;
 
 // XZ position of the camera
-float x=20.0f, y= 25.0f, z=20.0f;
+float x=20.0f, y= 5.0f, z=20.0f;
 
 // the key states. These variables will be zero
 //when no key is being presses
@@ -34,18 +34,18 @@ float xb = 0;
 float yb = 0;
 float zb = 0;
 
-float vx = 1;
-float vy = 1;
-float vz = 1;
+float vx = 0.1;
+float vy = 0.2;
+float vz = 0.3;
 
-int xb_max = 5;
-int yb_max = 5;
-int zb_max = 5;
+int xb_max = 10;
+int yb_max = 20;
+int zb_max = 10;
 
 
-int xb_min = -5;
-int yb_min = -5;
-int zb_min = -5;
+int xb_min = -10;
+int yb_min = 5;
+int zb_min = -10;
 
 void changeSize(int w, int h) {
 
@@ -138,8 +138,8 @@ void renderScene(void) {
     //Z axis
     glColor3f(0.0f, 0.0f, 1.0f);
     glBegin(GL_LINES);
-	glVertex3f(0.0f, 0.0f, 50.0f);
-    glVertex3f(0.0f, 0.0f, -50.0f);
+	glVertex3f(0.0f, 0.0f, 500.0f);
+    glVertex3f(0.0f, 0.0f, -500.0f);
 
 
 // Draw ground
@@ -182,7 +182,7 @@ void renderScene(void) {
 	   	glPushMatrix();
 	   	glTranslated(xb, yb, zb);      
 	    //glutSolidCone(0.2f,0.8f,10,2);
-	    glutSolidSphere(0.25f,20,20);
+	   	glutSolidSphere(0.25f,20,20);
 	    glPopMatrix();
 	 //   glutSwapBuffers();
 
@@ -190,9 +190,9 @@ void renderScene(void) {
     glutSwapBuffers();
 
    // Animation Control - compute the location for the next refresh
-   xb += vx*(0.1);
-   yb += vy*(0.1);
-   zb += vz*(0.1);
+   xb += vx*(0.3);
+   yb += vy*(0.3);
+   zb += vz*(0.3);
   // ballY += ySpeed;
    // Check if the ball exceeds the edges
    if (xb > xb_max) {
