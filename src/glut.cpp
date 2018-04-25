@@ -1,14 +1,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <GL/glut.h>
 
 using namespace std;
 
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
 
 int refreshMillis = 1;
 
@@ -72,33 +68,6 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void drawSnowMan() {
-
-	glColor3f(0.0f, 0.0f, 0.0f);
-
-// Draw Body
-	glTranslatef(0.0f ,0.75f, 0.0f);
-	glutSolidSphere(0.75f,20,20);
-
-// Draw Head
-	glTranslatef(0.0f, 1.0f, 0.0f);
-	glutSolidSphere(0.25f,20,20);
-
-// Draw Eyes
-	glPushMatrix();
-	glColor3f(0.0f,0.0f,0.0f);
-	glTranslatef(0.05f, 0.10f, 0.18f);
-	glutSolidSphere(0.05f,10,10);
-	glTranslatef(-0.1f, 0.0f, 0.0f);
-	glutSolidSphere(0.05f,10,10);
-	glPopMatrix();
-
-// Draw Nose
-	glColor3f(0.0f, 0.0f , 0.0f);
-	glRotatef(0.0f,1.0f, 0.0f, 0.0f);
-	glutSolidCone(0.08f,0.5f,10,2);
-}
-
 void computePos(float deltaMove) {
 
 	x += deltaMove * lx * 0.1f;
@@ -106,9 +75,6 @@ void computePos(float deltaMove) {
 }
 
 void renderScene(void) {
-
-	
-
 	if (deltaMove)
 		computePos(deltaMove);
 
@@ -142,27 +108,6 @@ void renderScene(void) {
     glVertex3f(0.0f, 0.0f, -500.0f);
 
 
-// Draw ground
-
-	// glColor3f(0.9f, 0.9f, 0.9f);
-	// glBegin(GL_QUADS);
-	// 	glVertex3f(-100.0f, 0.0f, -100.0f);
-	// 	glVertex3f(-100.0f, 0.0f,  100.0f);
-	// 	glVertex3f( 100.0f, 0.0f,  100.0f);
-	// 	glVertex3f( 100.0f, 0.0f, -100.0f);
-	// glEnd();
-
-// Draw 36 SnowMen
-
-	// for(int i = -3; i < 3; i++)
-	// 	for(int j=-3; j < 3; j++) {
- //                     glPushMatrix();
- //                     glTranslatef(i*10.0,0,j * 10.0);
- //                     drawSnowMan();
- //                     glPopMatrix();
- //               }
-
-//    glPointSize(10.0f);
     glBegin(GL_POINTS);
     glVertex3f(0.0f, 0.0f, 0.0f);
     glEnd();  
@@ -179,22 +124,21 @@ void renderScene(void) {
 	//    	nx = nx + vx;
 	//     ny = ny + vy;
 	//    	nz = nz + vz;
-	   	glPushMatrix();
-	   	glTranslated(xb, yb, zb);      
-	    //glutSolidCone(0.2f,0.8f,10,2);
-	   	glutSolidSphere(0.25f,20,20);
-	    glPopMatrix();
+   	glPushMatrix();
+   	glTranslated(xb, yb, zb);      
+    //glutSolidCone(0.2f,0.8f,10,2);
+   	glutSolidSphere(0.25f,20,20);
+    glPopMatrix();
 	 //   glutSwapBuffers();
 
 	
     glutSwapBuffers();
 
-   // Animation Control - compute the location for the next refresh
-   xb += vx*(0.3);
-   yb += vy*(0.3);
-   zb += vz*(0.3);
-  // ballY += ySpeed;
-   // Check if the ball exceeds the edges
+   	// Animation Control - compute the location for the next refresh
+   	xb += vx*(0.3);
+   	yb += vy*(0.3);
+   	zb += vz*(0.3);
+  	// Check if the ball exceeds the edges
    if (xb > xb_max) {
       xb = xb_max;
       vx = -vx;
