@@ -1,0 +1,159 @@
+\documentclass[12pt]{report}
+\usepackage[a4paper]{geometry}
+\usepackage[myheadings]{fullpage}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{graphicx, wrapfig, subcaption, setspace, booktabs}
+\usepackage[T1]{fontenc}
+\usepackage[font=small, labelfont=bf]{caption}
+\usepackage{fourier}
+\usepackage[protrusion=true, expansion=true]{microtype}
+\usepackage[english]{babel}
+\usepackage{sectsty}
+\usepackage{url, lipsum}
+\usepackage{amsmath}
+\usepackage{gensymb}
+
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\onehalfspacing
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+% HEADER & FOOTER
+%-----------------------------------------------------------------------\pagestyle{fancy}
+\fancyhf{}
+\setlength\headheight{15pt}
+\fancyhead[L]{COP290}
+\fancyhead[R]{Mathematical Modelling}
+\fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
+%-----------------------------------------------------------------------
+% TITLE PAGE
+
+\begin{document}
+
+\title{ \LARGE \textsc{\textbf{COP290}\\
+Design Practices in CS}
+		\\ [1.0cm] 
+		Project 2-Simulator for Starling Murmuration
+		\\ [1.0cm]
+		\HRule{2pt} \\
+		\LARGE \textbf{\uppercase{Mathematical Modelling}}
+		\HRule{2pt} \\ [0.5cm]
+		\normalsize  \vspace*{5\baselineskip}}
+
+\date{}
+
+\author{
+		Sachin Kumar Prajapati- \underline{\textbf{2016CS10355}} \\ 
+        Pranav Bhagat- \underline{\textbf{2016CS10352}} \\
+    	Guided By - Prof. Subhashis Banerjee \\
+		Department of Computer Science and Engineering\\ 
+        Indian Institute of Technology , Delhi}
+\newpage
+\maketitle
+
+\sectionfont{\scshape}
+
+%ABSTRACT---------------------------------------------------------------
+
+\section*{Introduction}
+
+This is a mathematical model for implementation of a simulator for  \textbf{Starling Murmuration}. In this document we will look at certain aspects of Murmuration in starlings like:-
+\begin{itemize}
+\item How does each bird decides it speed and direction to move?
+\item Does the movement of a bird depends on other birds also?
+\item What happens at an individual level for each bird?
+\item On what all factors does the movement of a bird depends? 
+
+\end{itemize}
+
+% 2D from 3D
+%-----------------------------------------------------------------------\newpage
+\section*{Factors deciding the movement of birds}
+Though the actual movement of starlings depend on various factors but for a very basic model we could assume that the movement of each starling depends mainly on these three factors:-
+\begin{itemize}
+    \item \textbf{Seperation}- Steer to avoid crowding neighbours.
+    \item \textbf{Alignment}- Steer towards the average heading of local flockmates.
+    \item \textbf{Cohesion}- Steer to move toward the average position (center of mass) of local flockmates. 
+\end{itemize}
+\vspace{1cm}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.88]{sep.jpg}
+    \caption{\textbf{Seperation Effect:} The bird tends to move away from crowding neighbours}
+    \label{fig:plane}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.88]{align.jpg}
+    \caption{\textbf{Alignment Effect:} The bird tends to towards the average velocity of its neighbours}
+    \label{fig:plane}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.88]{cohesion.jpg}
+    \caption{\textbf{Cohesion Effect:} The bird tends to move towards the center of mass of the neighbours}
+    \label{fig:plane}
+\end{figure}
+\newpage
+Apart from these, more advanced models could also report the effect of fear, emotions, change of leadership, escaping an enemy, looking for food etc.
+
+\section*{Calculating the position of a boid}
+Suppose the position of a boid in 3D space is given $(x, y, z)$.
+Now to find the new position of boid after time $\delta$t we need to have the velocity of the boid. If we have the velocity of boid $v_x, v_y, v_z$ in $X, Y, Z$ direction respectively then the new position of boid, let $(x_n_e_w, y_n_e_w, z_n_e_w)$ is given by $$x_n_e_w = x + v_x *(\delta t) $$
+$$
+y_n_e_w = y + v_y *(\delta t)
+$$
+$$
+z_n_e_w = z + v_z *(\delta t)$$
+
+\subsection*{Calculating the velocity of boid}
+As described above the velocity of each boid depends on three factor that are Seperation, Alignment, Cohesion.
+
+Suppose $N(r)$ is the list of all the boids which are neighnours of a given boid with position $p$ and velocity $v$, within a circle of radius $r$, and we know the position and velocity of each boid present in list.
+
+To account for the affect of \textbf{Seperation Factor} on the velocity of boid. We take a rather small radius around boid$r$ let say $r_1$ and find the list of all the neighbours in that given circle. After that we find the mean position of all the boids given in $N(r_)$ and find a vector from the position of original boid to that mean. Now as a result of seperation effect we will have a velocity in opposite direction of this vector in order to avoid crowding. Let say $v_s_e_p_e_r_a_t_i_o_n$ is the effect on velocity due to seperation and is given by $$v_s_e_p_e_r_a_t_i_o_n = seperation_f_a_c_t_o_r * (p-\frac{\sum_{n \epsilon N(r_1)} position(N(n))}{N(r_1)})$$
+where $seperation_f_a_c_t_o_r$ would be negative as boid moves away from average position to avoid crowding. 
+
+
+
+To account for the affect of \textbf{Alignment Factor} on the velocity of boid. We take a radius around boid $r$ let say $r_2$ and find the list of all the neighbours in that given circle. After that we find the mean velocity of all the boids given in $N(r_2)$. 
+Let say $v_a_l_i_g_n_m_e_n_t$ is the effect on velocity due to alignment and is given by $$v_a_l_i_g_n_m_e_n_t = alignment_f_a_c_t_o_r * (\frac{\sum_{n \epsilon N(r_2)} velocity(N(n))}{N(r_2)})$$
+where $alignment_f_a_c_t_o_r$ would be positive as boid moves in the direction of average velocity of neighbours.
+
+
+To account for the affect of \textbf{Cohesion Factor} on the velocity of boid. We take a radius around boid $r$ let say $r_3$ and find the list of all the neighbours in that given circle. After that we find the mean position of all the boids given in $N(r_3)$ and find a vector from the position of original boid to that mean. Now as a result of cohesion effect we will have a velocity in same direction of this vector in order to move towards the centre of mass of neighbours. Let say $v_c_o_h_e_s_i_o_n$ is the effect on velocity due to cohesion and is given by $$v_c_o_h_e_s_i_o_n = cohesion_f_a_c_t_o_r * (p-\frac{\sum_{n \epsilon N(r_3)} position(N(n))}{N(r_3)})$$
+where $cohesion_f_a_c_t_o_r$ would be positive as boid moves towards the average position of its neighbours.
+
+Taking in account all the three factors we can say that the new velocity of a boid $v_n_e_w$ is given by $$v_n_e_w = v_o_l_d + v_s_e_p_e_r_a_t_i_o_n + v_a_l_i_g_n_m_e_n_t + v_c_o_h_e_s_i_o_n$$
+
+Now, using these velocities we could easily calculate the new positions of the boids and trace the trajectory in which they move. We could also change the factors like $alignment_f_a_c_t_o_r, seperation_f_a_c_t_o_r, cohesion_f_a_c_t_o_r$ to make some variations in the movements of the boids.
+
+
+
+% REFERENCES
+%-----------------------------------------------------------------------\newpage
+\section*{References}
+\begin{itemize}
+     
+\item1.Flocking(behaviour)-Wikipedia
+
+https://en.wikipedia.org/wiki/Flocking\textunderscore(behavior)
+
+\item2.Boids-Wikipedia
+
+https://en.wikipedia.org/wiki/Boids
+
+\item3.Boids by Craig Reynolds
+
+http://www.red3d.com/cwr/boids/
+\newline
+\newline
+\end{itemize}
+
+ 
+\end{document}
