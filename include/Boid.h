@@ -4,28 +4,47 @@
 #include <vector>
 #include "math.h"
 
-extern float Align_Radius;
-extern float Cohese_Radius;
-extern float Seperation_Radius;
-extern float Obstacle_radius;
-extern float Alignment_parameter;
-extern float Cohesion_parameter;
-extern float Seperation_parameter;
-extern float Obstacle_parameter;
+using namespace std;
+///////////////////
 
+#define speed 0.1
+#define Align_Radius 1
+#define Cohese_Radius 1
+#define Seperation_Radius 1
+#define Obstacle_Radius 1
+#define Inertia_parameter 1
+#define Alignment_parameter 0.25
+#define Cohesion_parameter 0.25
+#define Seperation_parameter 0.25
+#define Obstacle_parameter 0.01
+#define Limit_parameter -5
+#define xmax  10
+#define ymax  20
+#define zmax  10
+#define xmin  -10
+#define ymin  5
+#define zmin  -10
 
+////////////////////
 
 struct Position{
 	float x; //x-coordinate
 	float y; //y-coordinate
 	float z; //z-coordinate
-}
+};
 
 struct Direction{
 	float i; //i-direction
 	float j; //j-direction
 	float k; //k-direction
-}
+};
+
+class Obstacle{
+	public:
+
+	Position location; 
+};
+
 
 class Boid{
 	public:
@@ -34,38 +53,29 @@ class Boid{
 
 	Direction direction;
 
-	float speed;
-
 	vector<Boid> neighbours;
 
-	vevtor<Obstacle> obstacles;
+	vector<Obstacle> obstacles;
 
-	Boid():
+	int xlimit, ylimit, zlimit;
 
-	Boid(Position p,float speed,vector<Boid> neighbours,vector<Obstacle> obstacles);
+	Boid();
+
+	Boid(Position p, Direction d, vector<Boid> neighbours,vector<Obstacle> obstacles);
 
 	// void findneighbours(vector<Boid> all);
 
-	Direction Boid::Direction_due_to_Alignment();
+	Direction Direction_due_to_Alignment();
 
-	Direction Boid::Direction_due_to_Cohesion();
+	Direction Direction_due_to_Cohesion();
 
-	Direction Boid::Direction_due_to_seperation();
+	Direction Direction_due_to_seperation();
 
-	Direction Boid::Direction_due_to_Obstacle();
+	Direction Direction_due_to_Obstacle();
 
-	Direction Boid::next_Direction();
+	Direction next_Direction();
+};
 
-	
-
-
-}
-
-class Obstacle{
-	public:
-
-	Position location; 
-}
 
 //gives distance between two locations
 float distance_between_positions(Position p1,Position p2);
@@ -88,3 +98,7 @@ void change_Cohesion_parameter();
 void change_Seperation_parameter();
 
 void change_Obstacle_parameter();
+
+Direction generate_unit_vector(Direction d);
+
+#endif

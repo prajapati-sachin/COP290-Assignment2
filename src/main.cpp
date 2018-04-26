@@ -1,9 +1,14 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <iostream>
 #include <GL/glut.h>
+#include "../include/Flock.h"
+#include "../include/Boid.h"
 
 using namespace std;
+
+Flock birds; 
 
 
 int refreshMillis = 1;
@@ -89,7 +94,7 @@ void renderScene(void) {
 			0.0f, 1.0f,  0.0f);
 
 	glColor3f(1.0f, 0.0f, 0.0f);
-    glLineWidth(5.0);
+    glLineWidth(2.0);
     //X axis
     glBegin(GL_LINES);
 	glVertex3f(500.0f, 0.0f, 0.0f);
@@ -108,10 +113,7 @@ void renderScene(void) {
     glVertex3f(0.0f, 0.0f, -500.0f);
 
 
-    glBegin(GL_POINTS);
-    glVertex3f(0.0f, 0.0f, 0.0f);
-    glEnd();  
-    glColor3f(1.0f, 1.0f, 1.0f);
+   
 
 	// int vx = 0;
 	// int vy = 1;
@@ -124,44 +126,92 @@ void renderScene(void) {
 	//    	nx = nx + vx;
 	//     ny = ny + vy;
 	//    	nz = nz + vz;
-   	glPushMatrix();
-   	glTranslated(xb, yb, zb);      
-    //glutSolidCone(0.2f,0.8f,10,2);
-   	glutSolidSphere(0.25f,20,20);
-    glPopMatrix();
-	 //   glutSwapBuffers();
+   	//Show the birds
+   	vector<Position> new_pos;
+   	for(int i=0;i< birds.Boids.size();i++){
+   		float x1,y1,z1;
+   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*speed*0.3; 
+   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*speed*0.3; 
+   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*speed*0.3; 
+	 //   cout << x1 << "|" << y1 << "|"<< z1 <<"\n";
+	    Position temp;
+	    temp.x=x1;
+	    temp.y=y1;
+	    temp.z=z1;
+	    new_pos.push_back(temp);
+	 	// Check if the ball exceeds the edges
+		// if (x1 > xb_max) {
+		//    x1 = xb_max;
+		// } else if (x1 < xb_min) {
+		//    x1 = xb_min;
+		// }
+		// if (y1 > yb_max) {
+		//    y1 = yb_max;
+		// } else if (y1 < yb_min) {
+		//    y1 = yb_min;
+		// }
+		// if (z1 > zb_max) {
+		//    z1 = zb_max;
+		// } else if (z1 < zb_min) {
+		//    z1 = zb_min;
+		// }
+	    // cout << x1 << "|"<< y1 << "|"<< z1 << "\n";
+	    
+	    glBegin(GL_POINTS);
+    	glVertex3f(0.0f, 0.0f, 0.0f);
+   		glEnd();  
+    	glColor3f(1.0f, 1.0f, 1.0f);
+	   	glPushMatrix();
+	   	glTranslated(x1, y1, z1);      
+    	//glutSolidCone(0.2f,0.8f,10,2);
+   		glutSolidSphere(0.15f,20,20);
+    	glPopMatrix();
 
+   	}
+   	// glPushMatrix();
+   	// glTranslated(xb, yb, zb);      
+    // //glutSolidCone(0.2f,0.8f,10,2);
+   	// glutSolidSphere(0.15f,20,20);
+    // glPopMatrix();
+	 //   glutSwapBuffers();
+	
+	//put swapbuffers in loop if does not work
 	
     glutSwapBuffers();
 
-   	// Animation Control - compute the location for the next refresh
-   	xb += vx*(0.3);
-   	yb += vy*(0.3);
-   	zb += vz*(0.3);
-  	// Check if the ball exceeds the edges
-   if (xb > xb_max) {
-      xb = xb_max;
-      vx = -vx;
-   } else if (xb < xb_min) {
-      xb = xb_min;
-      vx = -vx;
-   }
-   if (yb > yb_max) {
-      yb = yb_max;
-      vy = -vy;
-   } else if (yb < yb_min) {
-      yb = yb_min;
-      vy = -vy;
-   }
-   if (zb > zb_max) {
-      zb = zb_max;
-      vz = -vz;
-   } else if (zb < zb_min) {
-      zb = zb_min;
-      vz = -vz;
-   }
-
-
+   // 	// Animation Control - compute the location for the next refresh
+   // 	xb += vx*(0.3);
+   // 	yb += vy*(0.3);
+   // 	zb += vz*(0.3);
+  	// // Check if the ball exceeds the edges
+   // if (xb > xb_max) {
+   //    xb = xb_max;
+   //    vx = -vx;
+   // } else if (xb < xb_min) {
+   //    xb = xb_min;
+   //    vx = -vx;
+   // }
+   // if (yb > yb_max) {
+   //    yb = yb_max;
+   //    vy = -vy;
+   // } else if (yb < yb_min) {
+   //    yb = yb_min;
+   //    vy = -vy;
+   // }
+   // if (zb > zb_max) {
+   //    zb = zb_max;
+   //    vz = -vz;
+   // } else if (zb < zb_min) {
+   //    zb = zb_min;
+   //    vz = -vz;
+   // }
+    // cout << "shuru\n";
+    // for(int i=0;i< new_pos.size();i++){
+    // 	cout << new_pos[i].x << "|" << new_pos[i].y << "|" << new_pos[i].z << "\n";
+    // }
+    // cout << "khatam\n";
+    birds.update_positions(new_pos);
+    birds.update_directions();
 
 }
 
@@ -236,6 +286,31 @@ void Timer(int value) {
 }
 
 int main(int argc, char **argv) {
+	
+	Position first;
+	Position second;
+	Position third;
+
+	first.x=0;
+	first.y=0;
+	first.z=0;
+
+	second.x=1;
+	second.y=1;
+	second.z=1;
+
+	third.x=1;
+	third.y=1;
+	third.z=0;
+	
+	birds.addBoid(first);
+	birds.addBoid(second);
+	birds.addBoid(third);
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+//DISPLAY PART
 
 	// init GLUT and create window
 	glutInit(&argc, argv);
@@ -248,7 +323,7 @@ int main(int argc, char **argv) {
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
 	glutIdleFunc(renderScene);
-	   glutTimerFunc(0, Timer, 0);   // First timer call immediately
+	glutTimerFunc(0, Timer, 0);   // First timer call immediately
 
 
 	glutIgnoreKeyRepeat(1);

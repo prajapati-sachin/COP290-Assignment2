@@ -3,9 +3,9 @@
 
 #include <vector>
 #include "math.h"
-#include "boid.h"
+#include "Boid.h"
 
-class flock
+class Flock
 {
 public:
 	
@@ -13,13 +13,16 @@ public:
 
 	vector<Obstacle> Obstacles;
 
-	float speed;
-
 	Flock();
 
 	void addBoid(Position p);
 
 	void removeBoid(Position p);
-	
+		
+	void update_positions(vector<Position> p);
+
+	void update_directions();
+
 };
 
+#endif
