@@ -190,7 +190,7 @@ Direction Boid::next_Direction(){
 	Direction d4 = Direction_due_to_Obstacle();
 
 	// cout << xlimit << "|"<< ylimit << "|"<< zlimit << "\n";
-	cout << direction.i << "|" << direction.j << "|" << direction.k << "\n";
+	// cout << direction.i << "|" << direction.j << "|" << direction.k << "\n";
 	Direction temp_d;
 	if(xlimit_max==1){
 		temp_d.i = ((Inertia_parameter*direction.i)  + (Limit_parameter*(0.1))+ (d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter));

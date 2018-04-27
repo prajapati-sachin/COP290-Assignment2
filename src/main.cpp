@@ -3,8 +3,11 @@
 #include <stdio.h>
 #include <iostream>
 #include <GL/glut.h>
+#include <ctime>    // For time()
+#include <cstdlib>  // For srand() and rand()
 #include "../include/Flock.h"
 #include "../include/Boid.h"
+#include <thread>
 
 using namespace std;
 
@@ -18,10 +21,10 @@ float angle1 = 0.0f;
 float angle2 = 0.0f;
 
 // actual vector representing the camera's direction
-float lx=-2.0f, ly=-2.0f, lz=-2.0f;
+float lx=-2.0f, ly=0.0f, lz=-2.0f;
 
 // XZ position of the camera
-float x=20.0f, y= 5.0f, z=20.0f;
+float x=60.0f, y= 6.0f, z=60.0f;
 
 // the key states. These variables will be zero
 //when no key is being presses
@@ -130,9 +133,9 @@ void renderScene(void) {
    	vector<Position> new_pos;
    	for(int i=0;i< birds.Boids.size();i++){
    		float x1,y1,z1;
-   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*0.03; 
-   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*0.03; 
-   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*0.03; 
+   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*0.3; 
+   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*0.3; 
+   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*0.3; 
 	   // cout << x1 << "|" << y1 << "|"<< z1 <<"\n";
 	    Position temp;
 	    temp.x=x1;
@@ -164,7 +167,7 @@ void renderScene(void) {
 	   	glPushMatrix();
 	   	glTranslated(x1, y1, z1);      
     	//glutSolidCone(0.2f,0.8f,10,2);
-   		glutSolidSphere(0.15f,20,20);
+   		glutSolidSphere(0.2f,20,20);
     	glPopMatrix();
 
    	}
@@ -287,25 +290,34 @@ void Timer(int value) {
 
 int main(int argc, char **argv) {
 	
-	Position first;
-	Position second;
-	Position third;
+	// Position first;
+	// Position second;
+	// Position third;
 
-	first.x=0;
-	first.y=10;
-	first.z=0;
+	// first.x=0;
+	// first.y=10;
+	// first.z=0;
 
-	second.x=1;
-	second.y=10;
-	second.z=1;
+	// second.x=1;
+	// second.y=10;
+	// second.z=1;
 
-	third.x=1;
-	third.y=10;
-	third.z=0;
+	// third.x=1;
+	// third.y=10;
+	// third.z=0;
 	
-	birds.addBoid(first);
-	birds.addBoid(second);
-	birds.addBoid(third);
+	// birds.addBoid(first);
+	// birds.addBoid(second);
+	// birds.addBoid(third);
+	srand(time(0));
+	for(int i=0;i<10;i++){
+		Position temp;	
+		temp.x = (rand()%10);
+		temp.y = (rand()%28) + 7;
+		temp.z = (rand()%10);
+		birds.addBoid(temp);
+		// cout << temp.x << "|"<< temp.y << "|"<< temp.z << "\n";
+	}
 
 
 
@@ -320,6 +332,7 @@ int main(int argc, char **argv) {
 	glutCreateWindow("Boids");
 
 	// register callbacks
+	// glutDisplayFunc(renderScene);
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
 	glutIdleFunc(renderScene);
