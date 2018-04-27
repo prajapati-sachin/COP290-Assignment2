@@ -11,9 +11,13 @@ Boid::Boid(Position p, Direction d, vector<Boid> neighbours,vector<Obstacle> obs
 	this->direction = d;
 	this->neighbours = neighbours;
 	this->obstacles = obstacles;
-	this->xlimit = 0;
-	this->ylimit = 0;
-	this->zlimit = 0;
+	this->xlimit_max = 0;
+	this->ylimit_max = 0;
+	this->zlimit_max = 0;
+	this->xlimit_min = 0;
+	this->ylimit_min = 0;
+	this->zlimit_min = 0;
+
 
 }
 // void Boid::findneighbours(vector<Boid> all){
@@ -62,6 +66,7 @@ Direction Boid::Direction_due_to_Alignment(){
 
 Direction Boid::Direction_due_to_Cohesion(){
 	Position temp_position;
+	int flag=0;
 	float sum_x=0;
 	float sum_y=0;
 	float sum_z=0;
@@ -73,6 +78,7 @@ Direction Boid::Direction_due_to_Cohesion(){
 			sum_y = sum_y + temp.y;
 			sum_z = sum_z + temp.z;
 			count++;
+			flag=1;
 		}
 	}
 	if(count !=0){
@@ -86,13 +92,21 @@ Direction Boid::Direction_due_to_Cohesion(){
 		temp_position.z = sum_z;
 	}
 	
-	Direction temp_direction = direction_between_two_locations(temp_position,this->location) ;
+	Direction temp_direction;
+	if(flag==1){
+		temp_direction = direction_between_two_locations(temp_position,this->location);		
+	}
+	else{
+		temp_direction.i=0;
+		temp_direction.j=0;
+		temp_direction.k=0;
+	}
 	return temp_direction;
-
 }
 
 Direction Boid::Direction_due_to_seperation(){
 	Position temp_position;
+	int flag=0;
 	float sum_x=0;
 	float sum_y=0;
 	float sum_z=0;
@@ -104,6 +118,7 @@ Direction Boid::Direction_due_to_seperation(){
 			sum_y = sum_y + temp.y;
 			sum_z = sum_z + temp.z;
 			count++;
+			flag=1;
 		}
 	}
 	if(count !=0){
@@ -116,13 +131,22 @@ Direction Boid::Direction_due_to_seperation(){
 		temp_position.y = sum_y;
 		temp_position.z = sum_z;
 	}
-	
-	Direction temp_direction = direction_between_two_locations(temp_position,this->location) ;
+
+	Direction temp_direction;
+	if(flag==1){
+		temp_direction = direction_between_two_locations(temp_position,this->location);		
+	}
+	else{
+		temp_direction.i=0;
+		temp_direction.j=0;
+		temp_direction.k=0;
+	}
 	return temp_direction;
 }
 
 Direction Boid::Direction_due_to_Obstacle(){
 	Position temp_position;
+	int flag =0;
 	float sum_x=0;
 	float sum_y=0;
 	float sum_z=0;
@@ -134,6 +158,7 @@ Direction Boid::Direction_due_to_Obstacle(){
 			sum_y = sum_y + temp.y;
 			sum_z = sum_z + temp.z;
 			count++;
+			flag=1;
 		}
 	}
 	if(count !=0){
@@ -146,8 +171,15 @@ Direction Boid::Direction_due_to_Obstacle(){
 		temp_position.y = sum_y;
 		temp_position.z = sum_z;
 	}
-	
-	Direction temp_direction = direction_between_two_locations(temp_position,this->location) ;
+	Direction temp_direction;
+	if(flag==1){
+		temp_direction = direction_between_two_locations(temp_position,this->location);		
+	}
+	else{
+		temp_direction.i=0;
+		temp_direction.j=0;
+		temp_direction.k=0;
+	}
 	return temp_direction;
 }
 
@@ -157,13 +189,35 @@ Direction Boid::next_Direction(){
 	Direction d3 = Direction_due_to_seperation();
 	Direction d4 = Direction_due_to_Obstacle();
 
+	// cout << xlimit << "|"<< ylimit << "|"<< zlimit << "\n";
+	cout << direction.i << "|" << direction.j << "|" << direction.k << "\n";
 	Direction temp_d;
-	temp_d.i = (Inertia_parameter*direction.i) + (xlimit*(Limit_parameter*direction.i)) + (d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter);
-	temp_d.j = (Inertia_parameter*direction.j) + (ylimit*(Limit_parameter*direction.j)) + (d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter);
-	temp_d.k = (Inertia_parameter*direction.k) + (zlimit*(Limit_parameter*direction.k)) + (d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter);
-    Direction d_unit = generate_unit_vector(temp_d);
-    return d_unit;
-
+	if(xlimit_max==1){
+		temp_d.i = ((Inertia_parameter*direction.i)  + (Limit_parameter*(0.1))+ (d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter));
+	}else if(xlimit_min==1){
+		temp_d.i = ((Inertia_parameter*direction.i)  + (Limit_parameter*(-0.1))+ (d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter));
+	}
+	else{
+		temp_d.i = ((Inertia_parameter*direction.i)  +  (d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter));
+	}
+	if(ylimit_max==1){
+		temp_d.j = ((Inertia_parameter*direction.j)  + (Limit_parameter*(0.1))+ (d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter));
+	}else if(ylimit_min==1){
+		temp_d.j = ((Inertia_parameter*direction.j)  + (Limit_parameter*(-0.1))+ (d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter));
+	}
+	else{
+		temp_d.j = ((Inertia_parameter*direction.j)  +  (d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter));
+	}
+	if(zlimit_max==1){
+		temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(0.1))+ (d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter));
+    }else if(zlimit_min==1){
+    	temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(-0.1))+ (d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter));
+    }
+    else{
+    	temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(-0.1))+ (d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter));
+    }
+    // Direction d_unit = generate_unit_vector(temp_d);
+    return temp_d;
 }
 
 
@@ -192,9 +246,6 @@ Direction generate_unit_vector(Direction d){
 	float k = d.k;
 	float mag = sqrt((i*i) + (j*j) + (k*k));
 	Direction d_unit;
-	if(mag==0){
-		cout << "Dikkat he bhaiya";
-	}
 	d_unit.i= i/mag;
 	d_unit.j= j/mag;
 	d_unit.k= k/mag;

@@ -13,16 +13,16 @@ using namespace std;
 #define Seperation_Radius 1
 #define Obstacle_Radius 1
 #define Inertia_parameter 1
-#define Alignment_parameter 0.25
-#define Cohesion_parameter 0.25
-#define Seperation_parameter 0.25
-#define Obstacle_parameter 0.01
-#define Limit_parameter -5
+#define Alignment_parameter 0
+#define Cohesion_parameter 0
+#define Seperation_parameter 0
+#define Obstacle_parameter 0
+#define Limit_parameter -1
 #define xmax  10
-#define ymax  20
+#define ymax  35
 #define zmax  10
 #define xmin  -10
-#define ymin  5
+#define ymin  7
 #define zmin  -10
 
 ////////////////////
@@ -57,7 +57,7 @@ class Boid{
 
 	vector<Obstacle> obstacles;
 
-	int xlimit, ylimit, zlimit;
+	int xlimit_max, ylimit_max, zlimit_max, xlimit_min, ylimit_min, zlimit_min;
 
 	Boid();
 

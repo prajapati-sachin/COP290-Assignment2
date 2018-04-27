@@ -130,10 +130,10 @@ void renderScene(void) {
    	vector<Position> new_pos;
    	for(int i=0;i< birds.Boids.size();i++){
    		float x1,y1,z1;
-   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*speed*0.3; 
-   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*speed*0.3; 
-   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*speed*0.3; 
-	 //   cout << x1 << "|" << y1 << "|"<< z1 <<"\n";
+   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*0.03; 
+   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*0.03; 
+   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*0.03; 
+	   // cout << x1 << "|" << y1 << "|"<< z1 <<"\n";
 	    Position temp;
 	    temp.x=x1;
 	    temp.y=y1;
@@ -292,15 +292,15 @@ int main(int argc, char **argv) {
 	Position third;
 
 	first.x=0;
-	first.y=0;
+	first.y=10;
 	first.z=0;
 
 	second.x=1;
-	second.y=1;
+	second.y=10;
 	second.z=1;
 
 	third.x=1;
-	third.y=1;
+	third.y=10;
 	third.z=0;
 	
 	birds.addBoid(first);
@@ -316,7 +316,7 @@ int main(int argc, char **argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100,100);
-	glutInitWindowSize(640,480);
+	glutInitWindowSize(1000,720);
 	glutCreateWindow("Boids");
 
 	// register callbacks

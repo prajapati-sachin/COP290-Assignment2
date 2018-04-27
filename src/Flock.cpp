@@ -19,36 +19,59 @@ void Flock::addBoid(Position p){
 
 void Flock::update_positions(vector<Position> p){
 	for(int i=0;i<Boids.size();i++){
-		if(p[i].x> xmax || p[i].x< xmin){
-			Boids[i].xlimit=1;
-			cout << "bahar pahunh gya\n";
-		} else{
-			Boids[i].xlimit=0;
-			cout << "andar hi hun\n";
-		}
-		if(p[i].y> ymax || p[i].y< ymin){
-			Boids[i].ylimit=1;
-			cout << "bahar pahunh gya\n";
-		}else{
-			Boids[i].ylimit=0;
-			cout << "andar hi hun\n";
-		}
-		if(p[i].z> zmax || p[i].z< zmin){
-			Boids[i].zlimit=1;
-			cout << "bahar pahunh gya\n";
-		} else{
-			Boids[i].zlimit=0;
-			cout << "andar hi hun\n";
-		}			
+			
 		Boids[i].location = p[i];
-		cout << "\n";
+		// cout << "\n";
+		// SET LIMIT PARAMETERS FOR X COORDINATE
+		if(p[i].x > xmax){
+			Boids[i].xlimit_max=1;
+			Boids[i].xlimit_min=0;
+		}else if(p[i].x< xmin){
+			Boids[i].xlimit_min=1;
+			Boids[i].xlimit_max=0;
+		}
+		else{
+			Boids[i].xlimit_max=0;
+			Boids[i].xlimit_min=0;
+		}
+
+		// SET LIMIT PARAMETERS FOR Y COORDINATE
+		if(p[i].y > ymax){
+			Boids[i].ylimit_max=1;
+			Boids[i].ylimit_min=0;
+		}else if(p[i].y < ymin){
+			Boids[i].ylimit_min=1;
+			Boids[i].ylimit_max=0;
+		}
+		else{
+			Boids[i].ylimit_max=0;
+			Boids[i].ylimit_min=0;
+		}
+
+
+		// SET LIMIT PARAMETERS FOR Z COORDINATE
+		if(p[i].z > zmax){
+			Boids[i].zlimit_max=1;
+			Boids[i].zlimit_min=0;
+		}else if(p[i].z< zmin){
+			Boids[i].zlimit_min=1;
+			Boids[i].zlimit_max=0;
+		}
+		else{
+			Boids[i].zlimit_max=0;
+			Boids[i].zlimit_min=0;
+		}
+
+
 	}
 
 }
 
 void Flock::update_directions(){
 	for(int i=0;i<Boids.size();i++){
+	//	cout << Boids[i].xlimit << "|" << Boids[i].ylimit  << "|" << Boids[i].zlimit << "\n";
 		Boids[i].direction = Boids[i].next_Direction();
+		// cout << "\n";
 	}
 
 }
