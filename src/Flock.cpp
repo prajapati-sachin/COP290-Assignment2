@@ -4,11 +4,7 @@ using namespace std;
 
 Flock::Flock(){};
 
-void Flock::addBoid(Position p){
-	Direction d;
-	d.i=1;
-	d.j=1;
-	d.k=1;
+void Flock::addBoid(Position p, Direction d){
 	Direction dr = generate_unit_vector(d);
 	Boid temp_Boid(p, dr, Obstacles);
 

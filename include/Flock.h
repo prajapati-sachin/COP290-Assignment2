@@ -15,7 +15,7 @@ public:
 
 	Flock();
 
-	void addBoid(Position p);
+	void addBoid(Position p, Direction d);
 
 	void removeBoid(Position p);
 		

@@ -310,16 +310,33 @@ int main(int argc, char **argv) {
 	// birds.addBoid(second);
 	// birds.addBoid(third);
 	srand(time(0));
-	for(int i=0;i<900;i++){
-		Position temp;	
-		temp.x = (rand()%10);
-		temp.y = (rand()%28) + 7;
-		temp.z = (rand()%10);
-		birds.addBoid(temp);
+	for(int i=0;i<200;i++){
+		Position temp_position;	
+		Direction temp_direction;	
+		int flag;
+		temp_position.x = (rand()%10);
+		temp_position.y = (rand()%28) + 7;
+		temp_position.z = (rand()%10);
+		
+		flag = rand()%2;
+		if(flag==1){
+			temp_direction.i = (rand()%10);
+		}else{	temp_direction.i = -(rand()%10);}
+
+		flag = rand()%2;
+		if(flag==1){
+			temp_direction.j = (rand()%10);
+		}else{temp_direction.j = -(rand()%10);}
+
+		flag = rand()%2;
+		if(flag==1){
+			temp_direction.k = (rand()%10);
+		}else{temp_direction.k = -(rand()%10);}
+
+		birds.addBoid(temp_position, generate_unit_vector(temp_direction));
 		// cout << temp.x << "|"<< temp.y << "|"<< temp.z << "\n";
 	
 	}
-
 	// cout << birds.Boids.size();
 	// for(int i=0;i<birds.Boids.size();i++){
 	// 	cout << "Neigbhours of Bird No-" << i << "\n";

@@ -154,8 +154,13 @@ Direction Boid::next_Direction(){
     else{
     	temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(-0.1))+ (d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter));
     }
-    // Direction d_unit = generate_unit_vector(temp_d);
-    return temp_d;
+    
+    Direction d_unit;
+    if(magnitude(temp_d) > 1){
+    	d_unit = generate_unit_vector(temp_d);
+    }else{d_unit = temp_d;}
+    
+    return d_unit;
 }
 
 
@@ -188,4 +193,12 @@ Direction generate_unit_vector(Direction d){
 	d_unit.j= j/mag;
 	d_unit.k= k/mag;
 	return d_unit;
+}
+
+float magnitude(Direction d){
+	float i = d.i;
+	float j = d.j;
+	float k = d.k;
+	float mag = sqrt((i*i) + (j*j) + (k*k));
+	return mag;
 }
