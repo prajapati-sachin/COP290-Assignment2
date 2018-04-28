@@ -310,7 +310,7 @@ int main(int argc, char **argv) {
 	// birds.addBoid(second);
 	// birds.addBoid(third);
 	srand(time(0));
-	for(int i=0;i<11;i++){
+	for(int i=0;i<10;i++){
 		Position temp;	
 		temp.x = (rand()%10);
 		temp.y = (rand()%28) + 7;
