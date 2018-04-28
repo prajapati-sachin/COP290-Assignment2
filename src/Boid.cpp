@@ -6,10 +6,9 @@ using namespace std;
 
 Boid::Boid(){};
 
-Boid::Boid(Position p, Direction d, vector<Boid> neighbours,vector<Obstacle> obstacles){
+Boid::Boid(Position p, Direction d, vector<Obstacle> obstacles){
 	this->location = p;
 	this->direction = d;
-	this->neighbours = neighbours;
 	this->obstacles = obstacles;
 	this->xlimit_max = 0;
 	this->ylimit_max = 0;
@@ -37,8 +36,8 @@ Direction Boid::Direction_due_to_Alignment(){
 	Direction temp_direction;
 	float count=0;
 	for(int i=0;i<neighbours.size();i++){
-		if(distance_between_positions((neighbours[i]).location,(this->location))<=Align_Radius && distance_between_positions((neighbours[i]).location,(this->location))>0){
-			temp_direction = temp_direction + neighbours[i].direction;
+		if(distance_between_positions((neighbours[i])->location,(this->location))<=Align_Radius && distance_between_positions((neighbours[i])->location,(this->location))>0){
+			temp_direction = temp_direction + neighbours[i]->direction;
 			count++;
 		}
 	}
@@ -56,8 +55,8 @@ Direction Boid::Direction_due_to_Cohesion(){
 	int flag=0;
 	float count=0;
 	for(int i=0;i<neighbours.size();i++){
-		if(distance_between_positions((neighbours[i].location),(this->location))<=Cohese_Radius && distance_between_positions((neighbours[i].location),(this->location))>0){
-			temp_position = temp_position + (neighbours[i].location);
+		if(distance_between_positions((neighbours[i]->location),(this->location))<=Cohese_Radius && distance_between_positions((neighbours[i]->location),(this->location))>0){
+			temp_position = temp_position + (neighbours[i]->location);
 			count++;
 			flag=1;
 		}
@@ -81,8 +80,8 @@ Direction Boid::Direction_due_to_seperation(){
 	float sum_z=0;
 	float count=0;
 	for(int i=0;i<neighbours.size();i++){
-		if(distance_between_positions((neighbours[i].location),(this->location))<=Seperation_Radius && distance_between_positions((neighbours[i].location),(this->location))>0){
-			temp_position = temp_position + neighbours[i].location;
+		if(distance_between_positions((neighbours[i]->location),(this->location))<=Seperation_Radius && distance_between_positions((neighbours[i]->location),(this->location))>0){
+			temp_position = temp_position + neighbours[i]->location;
 			count++;
 			flag=1;
 		}

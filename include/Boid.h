@@ -88,7 +88,7 @@ class Boid{
 
 	Direction direction;
 
-	vector<Boid> neighbours;
+	vector<Boid*> neighbours;
 
 	vector<Obstacle> obstacles;
 
@@ -96,7 +96,7 @@ class Boid{
 
 	Boid();
 
-	Boid(Position p, Direction d, vector<Boid> neighbours,vector<Obstacle> obstacles);
+	Boid(Position p, Direction d, vector<Obstacle> obstacles);
 
 	// void findneighbours(vector<Boid> all);
 

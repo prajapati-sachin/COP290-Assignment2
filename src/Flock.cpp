@@ -10,9 +10,16 @@ void Flock::addBoid(Position p){
 	d.j=1;
 	d.k=1;
 	Direction dr = generate_unit_vector(d);
-	Boid temp_Boid(p, dr, Boids, Obstacles);
+	Boid temp_Boid(p, dr, Obstacles);
+
 	for(int i=0;i<Boids.size();i++){
-		(Boids[i]).neighbours.push_back(temp_Boid);
+		// (Boids[i]).neighbours.push_back(&temp_Boid);
+		temp_Boid.neighbours.push_back(&Boids[i]);
+	}
+
+
+	for(int i=0;i<Boids.size();i++){
+		(Boids[i]).neighbours.push_back(&temp_Boid);
 	}
 	Boids.push_back(temp_Boid);
 }

@@ -310,7 +310,7 @@ int main(int argc, char **argv) {
 	// birds.addBoid(second);
 	// birds.addBoid(third);
 	srand(time(0));
-	for(int i=0;i<10;i++){
+	for(int i=0;i<900;i++){
 		Position temp;	
 		temp.x = (rand()%10);
 		temp.y = (rand()%28) + 7;
@@ -319,6 +319,17 @@ int main(int argc, char **argv) {
 		// cout << temp.x << "|"<< temp.y << "|"<< temp.z << "\n";
 	
 	}
+
+	// cout << birds.Boids.size();
+	// for(int i=0;i<birds.Boids.size();i++){
+	// 	cout << "Neigbhours of Bird No-" << i << "\n";
+	// 	cout << (birds.Boids[i].neighbours).size();
+	// 	for(int j=0;j< (birds.Boids[i].neighbours).size();j++){
+	// 		cout << ((((birds.Boids[i]).neighbours)[j])->location).x << "|" << ((((birds.Boids[i]).neighbours)[j])->location).y << "|" << ((((birds.Boids[i]).neighbours)[j])->location).z << "\n";
+	// 	}
+
+	// 	cout << "\n";
+	// }
 
 
 
