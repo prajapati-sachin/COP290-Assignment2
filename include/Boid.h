@@ -31,12 +31,47 @@ struct Position{
 	float x; //x-coordinate
 	float y; //y-coordinate
 	float z; //z-coordinate
+
+	Position(){
+		x=y=z=0;
+	}
+    Position& operator+(const Position& rhs){ 
+        x += rhs.x;
+        y += rhs.y;
+        z += rhs.z;
+        return *this;
+    }
+    
+    Position& operator/(const int c){ 
+    x /= c;
+    y /= c;
+    z /= c;
+    return *this;
+    }
 };
 
 struct Direction{
 	float i; //i-direction
 	float j; //j-direction
 	float k; //k-direction
+	Direction(){
+		i=j=k=0;
+	}
+    
+    Direction& operator+(const Direction& rhs){ 
+        i += rhs.i;
+        j += rhs.j;
+        k += rhs.k;
+        return *this;
+    }
+    
+    Direction& operator/(const int c){ 
+    i /= c;
+    j /= c;
+    k /= c;
+    return *this;
+    }
+
 };
 
 class Obstacle{

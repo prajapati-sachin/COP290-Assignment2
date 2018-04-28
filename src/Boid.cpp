@@ -35,30 +35,17 @@ Boid::Boid(Position p, Direction d, vector<Boid> neighbours,vector<Obstacle> obs
 
 Direction Boid::Direction_due_to_Alignment(){
 	Direction temp_direction;
-	float sum_i=0;
-	float sum_j=0;
-	float sum_k=0;
 	float count=0;
 	for(int i=0;i<neighbours.size();i++){
-		Boid temp = (neighbours[i]);
-		if(distance_between_positions(temp.location,(this->location))<=Align_Radius && distance_between_positions(temp.location,(this->location))>0){
-			sum_i = sum_i + (temp.direction).i;
-			sum_j = sum_j + (temp.direction).j;
-			sum_k = sum_k + (temp.direction).k;
+		if(distance_between_positions((neighbours[i]).location,(this->location))<=Align_Radius && distance_between_positions((neighbours[i]).location,(this->location))>0){
+			temp_direction = temp_direction + neighbours[i].direction;
 			count++;
 		}
 	}
 	if(count !=0){
-		temp_direction.i = sum_i/count;
-		temp_direction.j = sum_j/count;
-		temp_direction.k = sum_k/count;
+		temp_direction = temp_direction/count;
 	}
-	else{
-		temp_direction.i = sum_i;
-		temp_direction.j = sum_j;
-		temp_direction.k = sum_k;
-	}
-	// cout << "mere to lo lag gye";
+
 	// cout << temp_direction.i << "|" << temp_direction.j << "|" << temp_direction.k<< "\n";
 	return temp_direction;
 
@@ -67,39 +54,21 @@ Direction Boid::Direction_due_to_Alignment(){
 Direction Boid::Direction_due_to_Cohesion(){
 	Position temp_position;
 	int flag=0;
-	float sum_x=0;
-	float sum_y=0;
-	float sum_z=0;
 	float count=0;
 	for(int i=0;i<neighbours.size();i++){
-		Position temp = (neighbours[i].location);
-		if(distance_between_positions(temp,(this->location))<=Cohese_Radius && distance_between_positions(temp,(this->location))>0){
-			sum_x = sum_x + temp.x;
-			sum_y = sum_y + temp.y;
-			sum_z = sum_z + temp.z;
+		if(distance_between_positions((neighbours[i].location),(this->location))<=Cohese_Radius && distance_between_positions((neighbours[i].location),(this->location))>0){
+			temp_position = temp_position + (neighbours[i].location);
 			count++;
 			flag=1;
 		}
 	}
 	if(count !=0){
-		temp_position.x = sum_x/count;
-		temp_position.y = sum_y/count;
-		temp_position.z = sum_z/count;
+		temp_position = temp_position/count;
 	}
-	else{
-		temp_position.x = sum_x;
-		temp_position.y = sum_y;
-		temp_position.z = sum_z;
-	}
-	
+
 	Direction temp_direction;
 	if(flag==1){
 		temp_direction = direction_between_two_locations(temp_position,this->location);		
-	}
-	else{
-		temp_direction.i=0;
-		temp_direction.j=0;
-		temp_direction.k=0;
 	}
 	return temp_direction;
 }
@@ -112,34 +81,19 @@ Direction Boid::Direction_due_to_seperation(){
 	float sum_z=0;
 	float count=0;
 	for(int i=0;i<neighbours.size();i++){
-		Position temp = (neighbours[i].location);
-		if(distance_between_positions(temp,(this->location))<=Seperation_Radius && distance_between_positions(temp,(this->location))>0){
-			sum_x = sum_x + temp.x;
-			sum_y = sum_y + temp.y;
-			sum_z = sum_z + temp.z;
+		if(distance_between_positions((neighbours[i].location),(this->location))<=Seperation_Radius && distance_between_positions((neighbours[i].location),(this->location))>0){
+			temp_position = temp_position + neighbours[i].location;
 			count++;
 			flag=1;
 		}
 	}
 	if(count !=0){
-		temp_position.x = sum_x/count;
-		temp_position.y = sum_y/count;
-		temp_position.z = sum_z/count;
-	}
-	else{
-		temp_position.x = sum_x;
-		temp_position.y = sum_y;
-		temp_position.z = sum_z;
+		temp_position = temp_position/count;
 	}
 
 	Direction temp_direction;
 	if(flag==1){
 		temp_direction = direction_between_two_locations(temp_position,this->location);		
-	}
-	else{
-		temp_direction.i=0;
-		temp_direction.j=0;
-		temp_direction.k=0;
 	}
 	return temp_direction;
 }
@@ -152,33 +106,18 @@ Direction Boid::Direction_due_to_Obstacle(){
 	float sum_z=0;
 	float count=0;
 	for(int i=0;i<obstacles.size();i++){
-		Position temp = (obstacles[i]).location;
-		if(distance_between_positions(temp,(this->location))<=Obstacle_Radius && distance_between_positions(temp,(this->location))>0){
-			sum_x = sum_x + temp.x;
-			sum_y = sum_y + temp.y;
-			sum_z = sum_z + temp.z;
+		if(distance_between_positions((obstacles[i].location),(this->location))<=Obstacle_Radius && distance_between_positions((obstacles[i].location),(this->location))>0){
+			temp_position = temp_position + (obstacles[i].location);
 			count++;
 			flag=1;
 		}
 	}
 	if(count !=0){
-		temp_position.x = sum_x/count;
-		temp_position.y = sum_y/count;
-		temp_position.z = sum_z/count;
-	}
-	else{
-		temp_position.x = sum_x;
-		temp_position.y = sum_y;
-		temp_position.z = sum_z;
+		temp_position = temp_position/count;
 	}
 	Direction temp_direction;
 	if(flag==1){
 		temp_direction = direction_between_two_locations(temp_position,this->location);		
-	}
-	else{
-		temp_direction.i=0;
-		temp_direction.j=0;
-		temp_direction.k=0;
 	}
 	return temp_direction;
 }

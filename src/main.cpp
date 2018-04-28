@@ -7,7 +7,7 @@
 #include <cstdlib>  // For srand() and rand()
 #include "../include/Flock.h"
 #include "../include/Boid.h"
-#include <thread>
+// #include <thread>
 
 using namespace std;
 
@@ -310,13 +310,14 @@ int main(int argc, char **argv) {
 	// birds.addBoid(second);
 	// birds.addBoid(third);
 	srand(time(0));
-	for(int i=0;i<10;i++){
+	for(int i=0;i<11;i++){
 		Position temp;	
 		temp.x = (rand()%10);
 		temp.y = (rand()%28) + 7;
 		temp.z = (rand()%10);
 		birds.addBoid(temp);
 		// cout << temp.x << "|"<< temp.y << "|"<< temp.z << "\n";
+	
 	}
 
 
