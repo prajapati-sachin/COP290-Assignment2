@@ -133,9 +133,9 @@ void renderScene(void) {
    	vector<Position> new_pos;
    	for(int i=0;i< birds.Boids.size();i++){
    		float x1,y1,z1;
-   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*0.3; 
-   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*0.3; 
-   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*0.3; 
+   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*0.7; 
+   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*0.7; 
+   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*0.7; 
 	   // cout << x1 << "|" << y1 << "|"<< z1 <<"\n";
 	    Position temp;
 	    temp.x=x1;
@@ -166,7 +166,8 @@ void renderScene(void) {
     	glColor3f(1.0f, 1.0f, 1.0f);
 	   	glPushMatrix();
 	   	glTranslated(x1, y1, z1);      
-    	//glutSolidCone(0.2f,0.8f,10,2);
+    	// glRotatef(((birds.Boids)[i].direction).i, ((birds.Boids)[i].direction).j , ((birds.Boids)[i].direction).k );
+    	// glutSolidCone(0.2f,0.8f,10,2);
    		glutSolidSphere(0.2f,20,20);
     	glPopMatrix();
 

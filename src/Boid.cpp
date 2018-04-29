@@ -69,6 +69,8 @@ Direction Boid::Direction_due_to_Cohesion(){
 	if(flag==1){
 		temp_direction = direction_between_two_locations(temp_position,this->location);		
 	}
+	// cout << temp_direction.i << "|" << temp_direction.j << "|" << temp_direction.k<< "\n";
+
 	return temp_direction;
 }
 
@@ -92,8 +94,10 @@ Direction Boid::Direction_due_to_seperation(){
 
 	Direction temp_direction;
 	if(flag==1){
-		temp_direction = direction_between_two_locations(temp_position,this->location);		
+		temp_direction = direction_between_two_locations(this->location, temp_position);		
 	}
+	// cout << temp_direction.i << "|" << temp_direction.j << "|" << temp_direction.k<< "\n";
+
 	return temp_direction;
 }
 
@@ -118,6 +122,8 @@ Direction Boid::Direction_due_to_Obstacle(){
 	if(flag==1){
 		temp_direction = direction_between_two_locations(temp_position,this->location);		
 	}
+	// cout << temp_direction.i << "|" << temp_direction.j << "|" << temp_direction.k<< "\n";
+
 	return temp_direction;
 }
 
@@ -127,38 +133,55 @@ Direction Boid::next_Direction(){
 	Direction d3 = Direction_due_to_seperation();
 	Direction d4 = Direction_due_to_Obstacle();
 
+	// cout << d1.i << "|" << d1.j << "|" << d1.k << "\n";
+
+	// cout << d1.i << "|" << d2.j << "|" << d3.k << "\n";
+
+
 	// cout << xlimit << "|"<< ylimit << "|"<< zlimit << "\n";
 	// cout << direction.i << "|" << direction.j << "|" << direction.k << "\n";
 	Direction temp_d;
 	if(xlimit_max==1){
-		temp_d.i = ((Inertia_parameter*direction.i)  + (Limit_parameter*(0.1))+ (d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter));
+		temp_d.i = ((Inertia_parameter*direction.i)  + (Limit_parameter*(0.1))+ 0.3*((d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter)-direction.i));
 	}else if(xlimit_min==1){
-		temp_d.i = ((Inertia_parameter*direction.i)  + (Limit_parameter*(-0.1))+ (d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter));
+		temp_d.i = ((Inertia_parameter*direction.i)  + (Limit_parameter*(-0.1))+ 0.3*((d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter)-direction.i));
 	}
 	else{
-		temp_d.i = ((Inertia_parameter*direction.i)  +  (d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter));
+		temp_d.i = ((Inertia_parameter*direction.i)  +  0.3*((d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter) - direction.i));
 	}
 	if(ylimit_max==1){
-		temp_d.j = ((Inertia_parameter*direction.j)  + (Limit_parameter*(0.1))+ (d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter));
+		temp_d.j = ((Inertia_parameter*direction.j)  + (Limit_parameter*(0.1))+ 0.3*((d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter) - direction.j));
 	}else if(ylimit_min==1){
-		temp_d.j = ((Inertia_parameter*direction.j)  + (Limit_parameter*(-0.1))+ (d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter));
+		temp_d.j = ((Inertia_parameter*direction.j)  + (Limit_parameter*(-0.1))+ 0.3*((d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter) -direction.j));
 	}
 	else{
-		temp_d.j = ((Inertia_parameter*direction.j)  +  (d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter));
+		temp_d.j = ((Inertia_parameter*direction.j)  +  0.3*((d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter)-direction.j));
 	}
 	if(zlimit_max==1){
-		temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(0.1))+ (d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter));
+		temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(0.1))+ 0.3*((d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter)-direction.k));
     }else if(zlimit_min==1){
-    	temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(-0.1))+ (d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter));
+    	temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(-0.1))+ 0.3*((d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter)-direction.k));
     }
     else{
-    	temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(-0.1))+ (d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter));
+    	temp_d.k = ((Inertia_parameter*direction.k)  + 0.3*((d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter)-direction.k));
     }
     
+
+
     Direction d_unit;
-    if(magnitude(temp_d) > 1){
-    	d_unit = generate_unit_vector(temp_d);
-    }else{d_unit = temp_d;}
+    if(magnitude(temp_d) > 5){
+    	// d_unit = generate_unit_vector(temp_d);
+   		d_unit.i = (temp_d.i*5)/magnitude(temp_d);
+   		d_unit.j = (temp_d.j*5)/magnitude(temp_d);
+   		d_unit.k = (temp_d.k*5)/magnitude(temp_d);
+    
+    }else if(magnitude(temp_d) < 0.1){
+    	d_unit.i = (temp_d.i*0.1)/magnitude(temp_d);
+   		d_unit.j = (temp_d.j*0.1)/magnitude(temp_d);
+   		d_unit.k = (temp_d.k*0.1)/magnitude(temp_d);
+	}else{d_unit=temp_d;}
+
+	// cout << d_unit.i << "|" << d_unit.j << "|" << d_unit.k << "\n";
     
     return d_unit;
 }
@@ -175,9 +198,9 @@ float distance_between_positions(Position p1,Position p2){
 
 Direction direction_between_two_locations(Position p1, Position p2){
 	Direction d;
-	d.i = p2.x - p1.x;
-	d.j = p2.y - p1.y;
-	d.k = p2.z - p1.z;
+	d.i = p1.x - p2.x;
+	d.j = p1.y - p2.y;
+	d.k = p1.z - p2.z;
 	return d;
 }
 

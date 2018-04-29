@@ -8,19 +8,19 @@ using namespace std;
 ///////////////////
 
 #define speed 0.1
-#define Align_Radius 5
-#define Cohese_Radius 5
-#define Seperation_Radius 0.5
+#define Align_Radius 7
+#define Cohese_Radius 3
+#define Seperation_Radius 0.1
 #define Obstacle_Radius 1
-#define Inertia_parameter 0.1
-#define Alignment_parameter 0.4
-#define Cohesion_parameter 0.4
-#define Seperation_parameter 0.1
+#define Inertia_parameter 1
+#define Alignment_parameter 0
+#define Cohesion_parameter 1	
+#define Seperation_parameter 0	
 #define Obstacle_parameter 0
 #define Limit_parameter -1
-#define xmax  10
+#define xmax  35
 #define ymax  35
-#define zmax  10
+#define zmax  35
 #define xmin  -10
 #define ymin  7
 #define zmin  -10
