@@ -133,9 +133,9 @@ void renderScene(void) {
    	vector<Position> new_pos;
    	for(int i=0;i< birds.Boids.size();i++){
    		float x1,y1,z1;
-   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*0.7; 
-   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*0.7; 
-   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*0.7; 
+   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*0.3; 
+   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*0.3; 
+   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*0.3; 
 	   // cout << x1 << "|" << y1 << "|"<< z1 <<"\n";
 	    Position temp;
 	    temp.x=x1;
@@ -311,30 +311,30 @@ int main(int argc, char **argv) {
 	// birds.addBoid(second);
 	// birds.addBoid(third);
 	srand(time(0));
-	for(int i=0;i<200;i++){
+	for(int i=0;i<250;i++){
 		Position temp_position;	
 		Direction temp_direction;	
 		int flag;
-		temp_position.x = (rand()%10);
-		temp_position.y = (rand()%28) + 7;
-		temp_position.z = (rand()%10);
+		temp_position.x = (rand()%5);
+		temp_position.y = (rand()%5) + 7;
+		temp_position.z = (rand()%5);
 		
 		flag = rand()%2;
 		if(flag==1){
-			temp_direction.i = (rand()%10);
-		}else{	temp_direction.i = -(rand()%10);}
+			temp_direction.i = (rand()%10)+1;
+		}else{	temp_direction.i = -(rand()%10)-1;}
 
 		flag = rand()%2;
 		if(flag==1){
-			temp_direction.j = (rand()%10);
-		}else{temp_direction.j = -(rand()%10);}
+			temp_direction.j = (rand()%10)+1;
+		}else{temp_direction.j = -(rand()%10)-1;}
 
 		flag = rand()%2;
 		if(flag==1){
-			temp_direction.k = (rand()%10);
-		}else{temp_direction.k = -(rand()%10);}
+			temp_direction.k = (rand()%10)+1;
+		}else{temp_direction.k = -(rand()%10)-1;}
 
-		birds.addBoid(temp_position, generate_unit_vector(temp_direction));
+		birds.addBoid(temp_position, temp_direction);
 		// cout << temp.x << "|"<< temp.y << "|"<< temp.z << "\n";
 	
 	}

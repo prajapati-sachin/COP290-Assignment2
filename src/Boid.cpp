@@ -142,44 +142,61 @@ Direction Boid::next_Direction(){
 	// cout << direction.i << "|" << direction.j << "|" << direction.k << "\n";
 	Direction temp_d;
 	if(xlimit_max==1){
-		temp_d.i = ((Inertia_parameter*direction.i)  + (Limit_parameter*(0.1))+ 0.3*((d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter)-direction.i));
+		temp_d.i = (Inertia_parameter*direction.i)  + (Limit_parameter*(0.1))+ ((d1.i-direction.i)*Alignment_parameter + (d2.i-direction.i)*Cohesion_parameter + (d3.i-direction.i)*Seperation_parameter + (d4.i-direction.i)*Obstacle_parameter);
 	}else if(xlimit_min==1){
-		temp_d.i = ((Inertia_parameter*direction.i)  + (Limit_parameter*(-0.1))+ 0.3*((d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter)-direction.i));
+		temp_d.i = (Inertia_parameter*direction.i)  + (Limit_parameter*(-0.1))+ ((d1.i-direction.i)*Alignment_parameter + (d2.i-direction.i)*Cohesion_parameter + (d3.i-direction.i)*Seperation_parameter + (d4.i-direction.i)*Obstacle_parameter);
 	}
 	else{
-		temp_d.i = ((Inertia_parameter*direction.i)  +  0.3*((d1.i*Alignment_parameter + d2.i*Cohesion_parameter + d3.i*Seperation_parameter + d4.i*Obstacle_parameter) - direction.i));
+		temp_d.i = (Inertia_parameter*direction.i)  +  ((d1.i-direction.i)*Alignment_parameter + (d2.i-direction.i)*Cohesion_parameter + (d3.i-direction.i)*Seperation_parameter + (d4.i-direction.i)*Obstacle_parameter);
 	}
 	if(ylimit_max==1){
-		temp_d.j = ((Inertia_parameter*direction.j)  + (Limit_parameter*(0.1))+ 0.3*((d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter) - direction.j));
+		temp_d.j = (Inertia_parameter*direction.j)  + (Limit_parameter*(0.1))+ ((d1.j-direction.j)*Alignment_parameter + (d2.j-direction.j)*Cohesion_parameter + (d3.j-direction.j)*Seperation_parameter + (d4.j-direction.j)*Obstacle_parameter);
 	}else if(ylimit_min==1){
-		temp_d.j = ((Inertia_parameter*direction.j)  + (Limit_parameter*(-0.1))+ 0.3*((d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter) -direction.j));
+		temp_d.j = (Inertia_parameter*direction.j)  + (Limit_parameter*(-0.1))+ ((d1.j-direction.j)*Alignment_parameter + (d2.j-direction.j)*Cohesion_parameter + (d3.j-direction.j)*Seperation_parameter + (d4.j-direction.j)*Obstacle_parameter);
 	}
 	else{
-		temp_d.j = ((Inertia_parameter*direction.j)  +  0.3*((d1.j*Alignment_parameter + d2.j*Cohesion_parameter + d3.j*Seperation_parameter + d4.j*Obstacle_parameter)-direction.j));
+		temp_d.j = (Inertia_parameter*direction.j)  +  ((d1.j-direction.j)*Alignment_parameter + (d2.j-direction.j)*Cohesion_parameter + (d3.j-direction.j)*Seperation_parameter + (d4.j-direction.j)*Obstacle_parameter);
 	}
 	if(zlimit_max==1){
-		temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(0.1))+ 0.3*((d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter)-direction.k));
+		temp_d.k = (Inertia_parameter*direction.k)  + (Limit_parameter*(0.1))+ ((d1.k-direction.k)*Alignment_parameter + (d2.k-direction.k)*Cohesion_parameter + (d3.k-direction.k)*Seperation_parameter + (d4.k-direction.k)*Obstacle_parameter);
     }else if(zlimit_min==1){
-    	temp_d.k = ((Inertia_parameter*direction.k)  + (Limit_parameter*(-0.1))+ 0.3*((d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter)-direction.k));
+    	temp_d.k = (Inertia_parameter*direction.k)  + (Limit_parameter*(-0.1))+ ((d1.k-direction.k)*Alignment_parameter + (d2.k-direction.k)*Cohesion_parameter + (d3.k-direction.k)*Seperation_parameter + (d4.k-direction.k)*Obstacle_parameter);
     }
     else{
-    	temp_d.k = ((Inertia_parameter*direction.k)  + 0.3*((d1.k*Alignment_parameter + d2.k*Cohesion_parameter + d3.k*Seperation_parameter + d4.k*Obstacle_parameter)-direction.k));
+    	temp_d.k = (Inertia_parameter*direction.k)  + ((d1.k-direction.k)*Alignment_parameter + (d2.k-direction.k)*Cohesion_parameter + (d3.k-direction.k)*Seperation_parameter + (d4.k-direction.k)*Obstacle_parameter);
     }
     
+
+    // cout << "Original:   " << Inertia_parameter*direction.i << "|"<< Inertia_parameter*direction.j << "|"<<Inertia_parameter*direction.k << "\n"; 
+    // cout << "Alignment:  " << (d1.i-direction.i)*Alignment_parameter << "|"<< (d1.j-direction.j)*Alignment_parameter << "|"<< (d1.k-direction.k)*Alignment_parameter << "\n"; 
+    // cout << "Cohesion:   " <<(d2.i-direction.i)*Cohesion_parameter << "|"<< (d2.j-direction.j)*Cohesion_parameter << "|"<< (d2.k-direction.k)*Cohesion_parameter << "\n"; 
+    // cout << "Seperation: " << (d3.i-direction.i)*Seperation_parameter << "|"<< (d3.j-direction.j)*Seperation_parameter << "|"<< (d3.k-direction.k)*Seperation_parameter << "\n"; 
+    // cout << "Total:      " << (Inertia_parameter*direction.i + (d1.i-direction.i)*Alignment_parameter + (d2.i-direction.i)*Cohesion_parameter + (d3.i-direction.i)*Seperation_parameter) << "|"
+    // 				<< (Inertia_parameter*direction.j + (d1.j-direction.j)*Alignment_parameter + (d2.j-direction.j)*Cohesion_parameter + (d3.j-direction.j)*Seperation_parameter) << "|"
+    // 				<< (Inertia_parameter*direction.k + (d1.k-direction.k)*Alignment_parameter + (d2.k-direction.k)*Cohesion_parameter + (d3.k-direction.k)*Seperation_parameter) << "\n";
+    // cout << "\n";
+
+
 
 
     Direction d_unit;
-    if(magnitude(temp_d) > 5){
+    if(magnitude(temp_d) > 0.3){
     	// d_unit = generate_unit_vector(temp_d);
-   		d_unit.i = (temp_d.i*5)/magnitude(temp_d);
-   		d_unit.j = (temp_d.j*5)/magnitude(temp_d);
-   		d_unit.k = (temp_d.k*5)/magnitude(temp_d);
+   		d_unit.i = (temp_d.i*0.5)/magnitude(temp_d);
+   		d_unit.j = (temp_d.j*0.5)/magnitude(temp_d);
+   		d_unit.k = (temp_d.k*0.5)/magnitude(temp_d);
     
-    }else if(magnitude(temp_d) < 0.1){
-    	d_unit.i = (temp_d.i*0.1)/magnitude(temp_d);
-   		d_unit.j = (temp_d.j*0.1)/magnitude(temp_d);
-   		d_unit.k = (temp_d.k*0.1)/magnitude(temp_d);
-	}else{d_unit=temp_d;}
+    }
+   	else if(magnitude(temp_d) < 0.05 && magnitude(temp_d) >0 ){
+    	d_unit.i = (temp_d.i*0.3)/magnitude(temp_d);
+   		d_unit.j = (temp_d.j*0.3)/magnitude(temp_d);
+   		d_unit.k = (temp_d.k*0.3)/magnitude(temp_d);
+	}
+	else{   
+			d_unit.i=temp_d.i;
+			d_unit.j=temp_d.j;
+			d_unit.k=temp_d.k;
+	}
 
 	// cout << d_unit.i << "|" << d_unit.j << "|" << d_unit.k << "\n";
     
