@@ -150,9 +150,9 @@ Direction Boid::next_Direction(){
 		temp_d.i = (Inertia_parameter*direction.i)  +  ((d1.i-direction.i)*Alignment_parameter + (d2.i-direction.i)*Cohesion_parameter + (d3.i-direction.i)*Seperation_parameter + (d4.i-direction.i)*Obstacle_parameter);
 	}
 	if(ylimit_max==1){
-		temp_d.j = (Inertia_parameter*direction.j)  + (Limit_parameter*(0.75))+ ((d1.j-direction.j)*Alignment_parameter + (d2.j-direction.j)*Cohesion_parameter + (d3.j-direction.j)*Seperation_parameter + (d4.j-direction.j)*Obstacle_parameter);
+		temp_d.j = (Inertia_parameter*direction.j)  + (Limit_parameter*(0.1))+ ((d1.j-direction.j)*Alignment_parameter + (d2.j-direction.j)*Cohesion_parameter + (d3.j-direction.j)*Seperation_parameter + (d4.j-direction.j)*Obstacle_parameter);
 	}else if(ylimit_min==1){
-		temp_d.j = (Inertia_parameter*direction.j)  + (Limit_parameter*(-0.75))+ ((d1.j-direction.j)*Alignment_parameter + (d2.j-direction.j)*Cohesion_parameter + (d3.j-direction.j)*Seperation_parameter + (d4.j-direction.j)*Obstacle_parameter);
+		temp_d.j = (Inertia_parameter*direction.j)  + (Limit_parameter*(-0.1))+ ((d1.j-direction.j)*Alignment_parameter + (d2.j-direction.j)*Cohesion_parameter + (d3.j-direction.j)*Seperation_parameter + (d4.j-direction.j)*Obstacle_parameter);
 	}
 	else{
 		temp_d.j = (Inertia_parameter*direction.j)  +  ((d1.j-direction.j)*Alignment_parameter + (d2.j-direction.j)*Cohesion_parameter + (d3.j-direction.j)*Seperation_parameter + (d4.j-direction.j)*Obstacle_parameter);
@@ -180,11 +180,11 @@ Direction Boid::next_Direction(){
 
 
     Direction d_unit;
-    if(magnitude(temp_d) > 0.5){
+    if(magnitude(temp_d) > 0.75){
     	// d_unit = generate_unit_vector(temp_d);
-   		d_unit.i = (temp_d.i*0.5)/magnitude(temp_d);
-   		d_unit.j = (temp_d.j*0.5)/magnitude(temp_d);
-   		d_unit.k = (temp_d.k*0.5)/magnitude(temp_d);
+   		d_unit.i = (temp_d.i*0.75)/magnitude(temp_d);
+   		d_unit.j = (temp_d.j*0.75)/magnitude(temp_d);
+   		d_unit.k = (temp_d.k*0.75)/magnitude(temp_d);
     
     }
    	else if(magnitude(temp_d) < 0.1 && magnitude(temp_d) >0 ){

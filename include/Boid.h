@@ -8,22 +8,22 @@ using namespace std;
 ///////////////////
 
 #define speed 0.1
-#define Align_Radius 10
+#define Align_Radius 5
 #define Cohese_Radius 5
 #define Seperation_Radius 1
 #define Obstacle_Radius 1
-#define Inertia_parameter 2
+#define Inertia_parameter 1
 #define Alignment_parameter 0.75
-#define Cohesion_parameter 0.01
-#define Seperation_parameter 0.5	
+#define Cohesion_parameter 0.001
+#define Seperation_parameter 0.1	
 #define Obstacle_parameter 0
 #define Limit_parameter -1
 #define xmax  35
-#define ymax  35
-#define zmax  17
-#define xmin  -7
-#define ymin  7
-#define zmin  -7
+#define ymax  40
+#define zmax  35
+#define xmin  -10
+#define ymin  15
+#define zmin  -10
 
 ////////////////////
 
@@ -84,7 +84,7 @@ class Obstacle{
 class Boid{
 	public:
 
-	Position location;
+	Position location;	
 
 	Direction direction;
 
