@@ -138,9 +138,9 @@ void renderScene(void) {
    	vector<Position> new_pos;
    	for(int i=0;i< birds.Boids.size();i++){
    		float x1,y1,z1;
-   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*0.7; 
-   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*0.7; 
-   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*0.7; 
+   		x1 = ((birds.Boids)[i].location).x + (((birds.Boids)[i].direction).i)*0.5; 
+   		y1 = ((birds.Boids)[i].location).y + (((birds.Boids)[i].direction).j)*0.5; 
+   		z1 = ((birds.Boids)[i].location).z + (((birds.Boids)[i].direction).k)*0.5; 
 	   // cout << x1 << "|" << y1 << "|"<< z1 <<"\n";
 	    Position temp;
 	    temp.x=x1;
@@ -320,9 +320,9 @@ int main(int argc, char **argv) {
 		Position temp_position;	
 		Direction temp_direction;	
 		int flag;
-		temp_position.x = (rand()%3)+ 5;
-		temp_position.y = (rand()%3) + 20;
-		temp_position.z = (rand()%3) + 5;
+		temp_position.x = (rand()%1);
+		temp_position.y = (rand()%1) + 20;
+		temp_position.z = (rand()%1) ;
 		
 		flag = rand()%2;
 		if(flag==1){

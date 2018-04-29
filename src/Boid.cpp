@@ -180,7 +180,7 @@ Direction Boid::next_Direction(){
 
 
     Direction d_unit;
-    if(magnitude(temp_d) > 0.75){
+    if(magnitude(temp_d) > 1.75){
     	// d_unit = generate_unit_vector(temp_d);
    		d_unit.i = (temp_d.i*0.75)/magnitude(temp_d);
    		d_unit.j = (temp_d.j*0.75)/magnitude(temp_d);
