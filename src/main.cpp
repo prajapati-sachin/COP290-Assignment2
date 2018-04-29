@@ -311,7 +311,7 @@ int main(int argc, char **argv) {
 	// birds.addBoid(second);
 	// birds.addBoid(third);
 	srand(time(0));
-	for(int i=0;i<250;i++){
+	for(int i=0;i<500;i++){
 		Position temp_position;	
 		Direction temp_direction;	
 		int flag;
@@ -321,18 +321,18 @@ int main(int argc, char **argv) {
 		
 		flag = rand()%2;
 		if(flag==1){
-			temp_direction.i = (rand()%10)+1;
-		}else{	temp_direction.i = -(rand()%10)-1;}
+			temp_direction.i = (rand()%5)+1;
+		}else{	temp_direction.i = -(rand()%5)-1;}
 
 		flag = rand()%2;
 		if(flag==1){
-			temp_direction.j = (rand()%10)+1;
-		}else{temp_direction.j = -(rand()%10)-1;}
+			temp_direction.j = (rand()%5)+1;
+		}else{temp_direction.j = -(rand()%5)-1;}
 
 		flag = rand()%2;
 		if(flag==1){
-			temp_direction.k = (rand()%10)+1;
-		}else{temp_direction.k = -(rand()%10)-1;}
+			temp_direction.k = (rand()%5)+1;
+		}else{temp_direction.k = -(rand()%5)-1;}
 
 		birds.addBoid(temp_position, temp_direction);
 		// cout << temp.x << "|"<< temp.y << "|"<< temp.z << "\n";

@@ -18,8 +18,8 @@ using namespace std;
 #define Seperation_parameter 0.5	
 #define Obstacle_parameter 0
 #define Limit_parameter -1
-#define xmax  17
-#define ymax  30
+#define xmax  35
+#define ymax  35
 #define zmax  17
 #define xmin  -7
 #define ymin  7
